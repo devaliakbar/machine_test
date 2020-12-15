@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "670514283502",
+    "project_id": "machine-test-b7abb",
+    "storage_bucket": "machine-test-b7abb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:670514283502:android:20c611c3f383ee3fe804ff",
+        "android_client_info": {
+          "package_name": "com.belllab.machine_test"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "670514283502-phums4njaqgk4ghc28rh2hjtf2mo21n0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.belllab.machine_test",
+            "certificate_hash": "881eb7b9e869473815bb50fae86bcfc9e252c481"
+          }
+        },
+        {
+          "client_id": "670514283502-4cbrd1470vtnii7tjfpp4upn3ugmugso.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCPRMOj33wJFmeAIYnYzxsh4T1Es7Vxeo4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "670514283502-4cbrd1470vtnii7tjfpp4upn3ugmugso.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

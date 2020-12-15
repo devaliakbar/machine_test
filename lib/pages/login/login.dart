@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:machine_test/pages/home/home.dart';
+import 'package:machine_test/services/firebase/google_sign_in.dart';
 import 'package:machine_test/services/settings/app_theme.dart';
 import 'package:machine_test/widgets/custom_icon_button.dart';
 
@@ -30,7 +32,20 @@ class Login extends StatelessWidget {
                       text: "Google",
                       imageIconPath: "assets/images/google-icon.png",
                       backgroundColor: AppTheme.blueColor,
-                      onPressed: () {},
+                      onPressed: () {
+                        //TODO
+                        // signInWithGoogle().then((result) {
+                        //   if (result != null) {
+                        //     Navigator.of(context).push(
+                        //       MaterialPageRoute(
+                        //         builder: (context) {
+                        //           return Home();
+                        //         },
+                        //       ),
+                        //     );
+                        //   }
+                        // });
+                      },
                     ),
                   ),
                   Container(
