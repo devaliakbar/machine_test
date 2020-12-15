@@ -17,8 +17,6 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
-    AppTheme.screenHeight = MediaQuery.of(context).size.height;
-
     return Scaffold(
       body: Column(
         children: [
@@ -102,13 +100,17 @@ class _LoginState extends State<Login> {
 
   void loginResult(bool success) {
     if (success != null) {
-      Navigator.of(context).push(
-        MaterialPageRoute(
-          builder: (context) {
-            return Home();
-          },
-        ),
-      );
+      Navigator.of(context).pushAndRemoveUntil(
+          MaterialPageRoute(builder: (context) => Home()),
+          (Route<dynamic> route) => false);
+
+      // Navigator.of(context).push(
+      //   MaterialPageRoute(
+      //     builder: (context) {
+      //       return ();
+      //     },
+      //   ),
+      // );
     }
   }
 }

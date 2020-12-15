@@ -32,6 +32,9 @@ dependencies:
   firebase_auth: ^0.18.4+1
   google_sign_in: ^4.5.6
   scoped_model: ^1.1.0
+  cached_network_image: ^2.4.1
+  equatable: ^1.2.0
+  flutter_bloc: ^4.0.1
 
 dev_dependencies:
   flutter_test:

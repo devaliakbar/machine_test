@@ -1,24 +1,54 @@
 import 'package:flutter/material.dart';
-import 'package:machine_test/services/firebase/firebase_authentication.dart';
-import 'package:machine_test/widgets/normal_text.dart';
-import 'package:scoped_model/scoped_model.dart';
+import 'package:machine_test/pages/home/widgets/partials/build_app_bar.dart';
+import 'package:machine_test/pages/home/widgets/partials/build_categories.dart';
+import 'package:machine_test/pages/home/widgets/partials/build_dishes.dart';
+import 'package:machine_test/pages/home/widgets/partials/build_drawer.dart';
 
-class Home extends StatelessWidget {
-  static const String myRoute = '/home';
+class Home extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return _HomeState();
+  }
+}
+
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: ScopedModelDescendant<FirebaseAuthentication>(builder:
-            (BuildContext context, Widget child,
-                FirebaseAuthentication firebaseAuthentication) {
-          return InkWell(
-            child: NormalText(firebaseAuthentication.currentUser.displayName),
-            onTap: () {
-              firebaseAuthentication.signOut();
-            },
-          );
-        }),
+      drawer: BuildDrawer(),
+      appBar: BuildHomeAppBar(
+        appBar: AppBar(),
+      ),
+      body: SafeArea(
+        child: Column(
+          children: [
+            Container(
+              height: 50,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey,
+                    offset: Offset(0.0, 1.0),
+                    blurRadius: 6.0,
+                  ),
+                ],
+              ),
+              child: BuildCategories(
+                [
+                  "Ali Akbar",
+                  "Rabka Ila",
+                  "Ali Akbar",
+                  "Rabka Ila",
+                  "Ali Akbar",
+                  "Rabka Ila",
+                ],
+                2,
+              ),
+            ),
+            Expanded(child: BuildDishes())
+          ],
+        ),
       ),
     );
   }
