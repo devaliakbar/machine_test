@@ -7,138 +7,81 @@ class BuildDrawer extends StatelessWidget {
   Widget build(BuildContext context) {
     return Theme(
       data: Theme.of(context).copyWith(
-        canvasColor: AppTheme.secondaryGreenColor,
+        canvasColor: Colors.white,
       ),
       child: Drawer(
         child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.all(15),
-            child: Column(
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(left: 15, right: 15, bottom: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          child: Column(
+            children: [
+              Container(
+                padding: EdgeInsets.all(30),
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    colors: <Color>[
+                      AppTheme.primaryGreenColor,
+                      AppTheme.secondaryGreenColor,
+                    ],
+                  ),
+                  borderRadius: BorderRadius.only(
+                      bottomLeft: Radius.circular(15),
+                      bottomRight: Radius.circular(15)),
+                ),
+                child: Center(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      NormalText(
-                        "Browse",
-                        color: Colors.black,
-                        boldText: true,
-                        size: AppTheme.fontSizeL,
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(42.0),
+                        child: Image.asset(
+                          "assets/images/img.jpg",
+                          height: 83,
+                          width: 83,
+                          fit: BoxFit.cover,
+                        ),
                       ),
-                      IconButton(
-                          icon: Icon(
-                            Icons.close,
-                            color: Colors.black,
-                            size: AppTheme.iconSizeM,
-                          ),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          })
+                      SizedBox(
+                        height: 15,
+                      ),
+                      NormalText(
+                        "Ali Akbar",
+                        size: AppTheme.fontSizeXL,
+                      ),
+                      SizedBox(
+                        height: 15,
+                      ),
+                      NormalText(
+                        "ID : 240",
+                        size: AppTheme.fontSizeXL,
+                      )
                     ],
                   ),
                 ),
-                Expanded(
-                  child: ListView(
-                    children: ListTile.divideTiles(
-                        context: context,
-                        color: AppTheme.primaryGreenColor,
-                        tiles: [
-                          ListTile(
-                            title: NormalText(
-                              "Home",
-                              color: Colors.black,
-                            ),
-                            leading: Icon(
-                              Icons.home_outlined,
-                              size: AppTheme.iconSizeS,
-                            ),
-                          ),
-                          ListTile(
-                            title: NormalText(
-                              "Categories",
-                              color: Colors.black,
-                            ),
-                            leading: Icon(
-                              Icons.category_outlined,
-                              size: AppTheme.iconSizeS,
-                            ),
-                            onTap: () {},
-                          ),
-                          ListTile(
-                            title: NormalText(
-                              "Compare",
-                              color: Colors.black,
-                            ),
-                            leading: Icon(
-                              Icons.compare,
-                              size: AppTheme.iconSizeS,
-                            ),
-                          ),
-                          ListTile(
-                            title: NormalText(
-                              "Cart",
-                              color: Colors.black,
-                            ),
-                            leading: Icon(
-                              Icons.shopping_cart,
-                              size: AppTheme.iconSizeS,
-                            ),
-                          ),
-                          ListTile(
-                            title: NormalText(
-                              "Wishlist",
-                              color: Colors.black,
-                            ),
-                            leading: Icon(
-                              Icons.favorite_border,
-                              size: AppTheme.iconSizeS,
-                            ),
-                          ),
-                          ListTile(
-                            title: NormalText(
-                              "My Wallet",
-                              color: Colors.black,
-                            ),
-                            leading: Icon(
-                              Icons.attach_money_outlined,
-                              size: AppTheme.iconSizeS,
-                            ),
-                          ),
-                          ListTile(
-                            title: NormalText(
-                              "Manage Profile",
-                              color: Colors.black,
-                            ),
-                            leading: Icon(
-                              Icons.person_outline,
-                              size: AppTheme.iconSizeS,
-                            ),
-                          ),
-                        ]).toList(),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 15, right: 15, top: 15),
+              ),
+              InkWell(
+                onTap: () {},
+                child: Padding(
+                  padding: EdgeInsets.only(left: 15, top: 15, bottom: 15),
                   child: Row(
                     children: [
                       Icon(
-                        Icons.power_settings_new,
-                        size: AppTheme.iconSizeS,
+                        Icons.exit_to_app,
+                        size: AppTheme.iconSizeL,
+                        color: AppTheme.secondaryGreyColor,
                       ),
                       SizedBox(
                         width: 15,
                       ),
                       NormalText(
                         "Log Out",
-                        color: Colors.black,
+                        color: AppTheme.secondaryGreyColor,
+                        size: AppTheme.fontSizeXL,
                         boldText: true,
                       )
                     ],
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

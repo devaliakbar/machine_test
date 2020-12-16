@@ -55,6 +55,7 @@ flutter:
   assets:
     - assets/images/firebase.png
     - assets/images/google-icon.png
+    - assets/images/img.jpg
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 
