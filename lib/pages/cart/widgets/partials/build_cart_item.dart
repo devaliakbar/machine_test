@@ -103,7 +103,7 @@ class BuildCartItems extends StatelessWidget {
               width: 7,
             ),
             NormalText(
-              "INR ${cartDishes[index].price}",
+              "INR ${cartDishes[index].total}",
               boldText: true,
               size: AppTheme.fontSizeL,
               color: AppTheme.primaryGreyColor,

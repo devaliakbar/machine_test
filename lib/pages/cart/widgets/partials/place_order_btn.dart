@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:machine_test/pages/cart/bloc/cart_bloc.dart';
+import 'package:machine_test/pages/home/home.dart';
 import 'package:machine_test/services/settings/app_theme.dart';
 import 'package:machine_test/widgets/normal_text.dart';
 
@@ -21,7 +24,31 @@ class PlaceOrderButton extends StatelessWidget {
           color: Colors.white,
           size: AppTheme.fontSizeXL,
         ),
-        onPressed: () {},
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text('Success'),
+                content: const Text('Order successfully placed'),
+                actions: [
+                  FlatButton(
+                    child: Text('Ok'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+
+                      BlocProvider.of<CartBloc>(context).add(ResetCartEvent());
+
+                      Navigator.of(context).pushAndRemoveUntil(
+                          MaterialPageRoute(builder: (context) => Home()),
+                          (Route<dynamic> route) => false);
+                    },
+                  ),
+                ],
+              );
+            },
+          );
+        },
       ),
     );
   }

@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:machine_test/pages/cart/cart.dart';
 import 'package:machine_test/services/settings/app_theme.dart';
 import 'package:machine_test/widgets/normal_text.dart';
 
 class CartIcon extends StatelessWidget {
   final int cartCount;
-  CartIcon({this.cartCount = 0});
+  final Function onPress;
+  CartIcon({this.cartCount = 0, this.onPress});
 
   @override
   Widget build(BuildContext context) {
@@ -17,15 +17,7 @@ class CartIcon extends StatelessWidget {
             color: AppTheme.secondaryGreyColor,
             size: AppTheme.iconSizeM,
           ),
-          onPressed: () {
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return Cart();
-                },
-              ),
-            );
-          },
+          onPressed: onPress,
         ),
         Positioned(
           right: 3,

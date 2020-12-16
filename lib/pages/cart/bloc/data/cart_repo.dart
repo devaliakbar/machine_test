@@ -41,4 +41,11 @@ class CartRepo {
     cartModel.noOfItems += 1;
     cartModel.totalAmount += cartDishes.price;
   }
+
+  void resetCart() {
+    cartModel.cartDishes = new List<CartDishes>();
+    cartModel.noOfDishes = 0;
+    cartModel.noOfItems = 0;
+    cartModel.totalAmount = 0;
+  }
 }

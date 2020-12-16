@@ -21,6 +21,9 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       yield CartLoading();
       _cartRepo.addItemToCart(event.cartDishes, event.opCode);
       yield CartInitial(cartModel: _cartRepo.cartModel);
+    } else if (event is ResetCartEvent) {
+      _cartRepo.resetCart();
+      yield CartInitial(cartModel: _cartRepo.cartModel);
     }
   }
 }

@@ -31,130 +31,149 @@ class BuildDishes extends StatelessWidget {
   Widget _buildDish(BuildContext context, int index) {
     TextEditingController qtyController = TextEditingController();
     qtyController.text = "0";
-    return Container(
-      padding: EdgeInsets.only(left: 15, right: 15, bottom: 5),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Expanded(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
+
+    return BlocConsumer<CartBloc, CartState>(
+      listener: (context, state) {
+        print("Cart Changed");
+      },
+      builder: (_, state) {
+        if (state is CartInitial) {
+          state.cartModel.cartDishes.forEach((v) {
+            if (v.dishId == homeDishes[index].dishId) {
+              qtyController.text = "${v.qty}";
+            }
+          });
+
+          return Container(
+            padding: EdgeInsets.only(left: 15, right: 15, bottom: 5),
+            child: Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  children: [
-                    Icon(
-                      Icons.radio_button_checked,
-                      color: homeDishes[index].isVeg
-                          ? AppTheme.primaryGreenColor
-                          : Colors.red,
-                      size: AppTheme.iconSizeM,
-                    ),
-                    SizedBox(
-                      width: 5,
-                    ),
-                    Expanded(
-                      child: NormalText(
-                        homeDishes[index].dishName,
-                        size: AppTheme.fontSizeL,
-                        boldText: true,
-                        color: AppTheme.primaryGreyColor,
-                      ),
-                    )
-                  ],
-                ),
-                SizedBox(
-                  height: 5,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 31, right: 15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Expanded(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      NormalText(
-                        "INR " + homeDishes[index].price.toString(),
-                        boldText: true,
-                        color: AppTheme.primaryGreyColor,
+                      SizedBox(
+                        height: 10,
                       ),
-                      NormalText(
-                        homeDishes[index].calories.round().toString() +
-                            ' Calories',
-                        boldText: true,
-                        color: AppTheme.primaryGreyColor,
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.radio_button_checked,
+                            color: homeDishes[index].isVeg
+                                ? AppTheme.primaryGreenColor
+                                : Colors.red,
+                            size: AppTheme.iconSizeM,
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Expanded(
+                            child: NormalText(
+                              homeDishes[index].dishName,
+                              size: AppTheme.fontSizeL,
+                              boldText: true,
+                              color: AppTheme.primaryGreyColor,
+                            ),
+                          )
+                        ],
                       ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 31, right: 15),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            NormalText(
+                              "INR " + homeDishes[index].price.toString(),
+                              boldText: true,
+                              color: AppTheme.primaryGreyColor,
+                            ),
+                            NormalText(
+                              homeDishes[index].calories.round().toString() +
+                                  ' Calories',
+                              boldText: true,
+                              color: AppTheme.primaryGreyColor,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 31, right: 15),
+                        child: NormalText(
+                          homeDishes[index].dishDescription,
+                          color: AppTheme.secondaryGreyColor,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 31),
+                        child: EnterQty(
+                          qtyController,
+                          increment: () {
+                            BlocProvider.of<CartBloc>(context).add(
+                                AddToCartEvent(
+                                    cartDishes: new CartDishes(
+                                        homeDishes[index].dishId,
+                                        homeDishes[index].dishName,
+                                        homeDishes[index].isVeg,
+                                        homeDishes[index].calories,
+                                        homeDishes[index].price,
+                                        1,
+                                        homeDishes[index].price),
+                                    opCode: CartRepo.ACTION_INCREMENT));
+                          },
+                          decrement: () {
+                            BlocProvider.of<CartBloc>(context).add(
+                                AddToCartEvent(
+                                    cartDishes: new CartDishes(
+                                        homeDishes[index].dishId,
+                                        homeDishes[index].dishName,
+                                        homeDishes[index].isVeg,
+                                        homeDishes[index].calories,
+                                        homeDishes[index].price,
+                                        1,
+                                        homeDishes[index].price),
+                                    opCode: CartRepo.ACTION_DECREMENT));
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: homeDishes[index].isCustomizable ? 12 : 5,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 35),
+                        child: homeDishes[index].isCustomizable
+                            ? NormalText(
+                                "Customizible",
+                                color: Colors.red,
+                              )
+                            : Container(),
+                      )
                     ],
                   ),
                 ),
                 SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 31, right: 15),
-                  child: NormalText(
-                    homeDishes[index].dishDescription,
-                    color: AppTheme.secondaryGreyColor,
+                  height: 100,
+                  width: 75,
+                  child: ImageFromNetwork(
+                    homeDishes[index].imageUrl,
                   ),
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 31),
-                  child: EnterQty(
-                    qtyController,
-                    increment: () {
-                      BlocProvider.of<CartBloc>(context).add(AddToCartEvent(
-                          cartDishes: new CartDishes(
-                              homeDishes[index].dishId,
-                              homeDishes[index].dishName,
-                              homeDishes[index].isVeg,
-                              homeDishes[index].calories,
-                              homeDishes[index].price,
-                              1,
-                              homeDishes[index].price),
-                          opCode: CartRepo.ACTION_INCREMENT));
-                    },
-                    decrement: () {
-                      BlocProvider.of<CartBloc>(context).add(AddToCartEvent(
-                          cartDishes: new CartDishes(
-                              homeDishes[index].dishId,
-                              homeDishes[index].dishName,
-                              homeDishes[index].isVeg,
-                              homeDishes[index].calories,
-                              homeDishes[index].price,
-                              1,
-                              homeDishes[index].price),
-                          opCode: CartRepo.ACTION_DECREMENT));
-                    },
-                  ),
-                ),
-                SizedBox(
-                  height: homeDishes[index].isCustomizable ? 12 : 5,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 35),
-                  child: homeDishes[index].isCustomizable
-                      ? NormalText(
-                          "Customizible",
-                          color: Colors.red,
-                        )
-                      : Container(),
                 )
               ],
             ),
-          ),
-          SizedBox(
-            height: 100,
-            width: 75,
-            child: ImageFromNetwork(
-              homeDishes[index].imageUrl,
-            ),
-          )
-        ],
-      ),
+          );
+        }
+        return Container();
+      },
     );
   }
 }

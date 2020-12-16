@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:machine_test/pages/cart/cart.dart';
 import 'package:machine_test/pages/home/bloc/home_bloc.dart';
 import 'package:machine_test/pages/home/widgets/partials/build_app_bar.dart';
 import 'package:machine_test/pages/home/widgets/partials/build_drawer.dart';
@@ -16,13 +17,28 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
     BlocProvider.of<HomeBloc>(context).add(HomeLoadEvent());
+  }
 
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       drawer: BuildDrawer(),
       appBar: BuildHomeAppBar(
         appBar: AppBar(),
+        reloadPage: () async {
+          await Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) {
+                return Cart();
+              },
+            ),
+          );
+
+          setState(() {});
+        },
       ),
       body: SafeArea(
         child: BlocConsumer<HomeBloc, HomeState>(

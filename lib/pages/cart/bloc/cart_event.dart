@@ -15,3 +15,5 @@ class AddToCartEvent extends CartEvent {
   @override
   List<Object> get props => [cartDishes, opCode];
 }
+
+class ResetCartEvent extends CartEvent {}
