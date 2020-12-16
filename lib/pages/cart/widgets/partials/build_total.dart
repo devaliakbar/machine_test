@@ -15,13 +15,13 @@ class BuildTotalAmount extends StatelessWidget {
         children: [
           NormalText(
             "Total Amount",
-            size: AppTheme.fontSizeXL,
+            size: AppTheme.fontSizeL,
             boldText: true,
             color: Colors.black,
           ),
           NormalText(
             Util.formatCurrency(totalAmount),
-            size: AppTheme.fontSizeXL,
+            size: AppTheme.fontSizeL,
             boldText: true,
             color: AppTheme.primaryGreenColor,
           )

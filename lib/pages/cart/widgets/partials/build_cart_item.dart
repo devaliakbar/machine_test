@@ -52,7 +52,6 @@ class BuildCartItems extends StatelessWidget {
                       Expanded(
                         child: NormalText(
                           cartDishes[index].dishName,
-                          size: AppTheme.fontSizeL,
                           boldText: true,
                           color: AppTheme.primaryGreyColor,
                         ),
@@ -63,7 +62,6 @@ class BuildCartItems extends StatelessWidget {
                     padding: EdgeInsets.only(left: 27, top: 20),
                     child: NormalText(
                       Util.formatCurrency(cartDishes[index].price),
-                      size: AppTheme.fontSizeL,
                       boldText: true,
                       color: AppTheme.primaryGreyColor,
                     ),
@@ -106,7 +104,6 @@ class BuildCartItems extends StatelessWidget {
             NormalText(
               Util.formatCurrency(cartDishes[index].total),
               boldText: true,
-              size: AppTheme.fontSizeL,
               color: AppTheme.primaryGreyColor,
             )
           ],

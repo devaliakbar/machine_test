@@ -9,6 +9,7 @@ import 'package:machine_test/pages/home/widgets/views/home_error.dart';
 import 'package:machine_test/pages/home/widgets/views/home_loading.dart';
 
 class Home extends StatefulWidget {
+  static const String myRoute = '/home';
   @override
   State<StatefulWidget> createState() {
     return _HomeState();
@@ -29,14 +30,7 @@ class _HomeState extends State<Home> {
       appBar: BuildHomeAppBar(
         appBar: AppBar(),
         reloadPage: () async {
-          await Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) {
-                return Cart();
-              },
-            ),
-          );
-
+          await Navigator.pushNamed(context, Cart.myRoute);
           setState(() {});
         },
       ),

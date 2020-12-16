@@ -8,6 +8,7 @@ import 'package:machine_test/widgets/custom_icon_button.dart';
 import 'package:scoped_model/scoped_model.dart';
 
 class Login extends StatefulWidget {
+  static const String myRoute = '/login';
   @override
   State<StatefulWidget> createState() {
     return _LoginState();
@@ -100,9 +101,8 @@ class _LoginState extends State<Login> {
 
   void loginResult(bool success) {
     if (success != null) {
-      Navigator.of(context).pushAndRemoveUntil(
-          MaterialPageRoute(builder: (context) => Home()),
-          (Route<dynamic> route) => false);
+      Navigator.of(context).pushNamedAndRemoveUntil(
+          Home.myRoute, (Route<dynamic> route) => false);
     }
   }
 }

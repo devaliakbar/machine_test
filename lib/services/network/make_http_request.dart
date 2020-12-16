@@ -15,7 +15,6 @@ class MakeHttpRequest {
     @required String path,
     String method = GET_METHOD,
     Map body,
-    String timestampOfRequest,
   }) async {
     String requestUrl = Uri.encodeFull(path);
 
@@ -34,22 +33,14 @@ class MakeHttpRequest {
         }
       }
       var jsonResponce = await json.decode(response.body);
-      returnResponce['data'] = jsonResponce;
-      // if (jsonResponce['success'] && jsonResponce['status'] == 200) {
 
-      // } else {
-      //   returnResponce['errorMsg'] = "Oops! Something went wrong.";
-      //   // if (jsonResponce.containsKey('message')) {
-      //   //   returnResponce['errorMsg'] = jsonResponce['message'];
-      //   // }
-      // }
+      returnResponce['data'] = jsonResponce;
     } on SocketException catch (_) {
       returnResponce['errorMsg'] = ERROR_NO_CONNECTION;
     } catch (e) {
       returnResponce['errorMsg'] = ERROR_MSG;
     }
 
-    returnResponce['timestampOfRequest'] = timestampOfRequest;
     return returnResponce;
   }
 }

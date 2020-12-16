@@ -9,6 +9,7 @@ import 'package:machine_test/pages/cart/widgets/partials/no_dishes_and_item.dart
 import 'package:machine_test/pages/cart/widgets/partials/place_order_btn.dart';
 
 class Cart extends StatelessWidget {
+  static const String myRoute = '/cart';
   @override
   Widget build(BuildContext context) {
     return Scaffold(

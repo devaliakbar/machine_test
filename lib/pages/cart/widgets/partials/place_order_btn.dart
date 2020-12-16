@@ -39,9 +39,8 @@ class PlaceOrderButton extends StatelessWidget {
 
                       BlocProvider.of<CartBloc>(context).add(ResetCartEvent());
 
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) => Home()),
-                          (Route<dynamic> route) => false);
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          Home.myRoute, (Route<dynamic> route) => false);
                     },
                   ),
                 ],

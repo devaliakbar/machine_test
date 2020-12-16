@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:machine_test/utils/hexcolor.dart';
 
 class AppTheme {
-  static double iconSizeXS = 20.0;
-  static double iconSizeS = 23.0;
   static double iconSizeM = 26.0;
   static double iconSizeL = 29.0;
 

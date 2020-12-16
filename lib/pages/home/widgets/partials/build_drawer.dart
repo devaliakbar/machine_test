@@ -55,14 +55,14 @@ class BuildDrawer extends StatelessWidget {
                                     .toString()
                                 : firebaseAuthentication
                                     .currentUser.displayName,
-                            size: AppTheme.fontSizeXL,
+                            size: AppTheme.fontSizeL,
                           ),
                           SizedBox(
                             height: 15,
                           ),
                           NormalText(
                             "ID : ${firebaseAuthentication.currentUser.uid}",
-                            size: AppTheme.fontSizeXL,
+                            size: AppTheme.fontSizeL,
                           )
                         ],
                       ),
@@ -71,9 +71,9 @@ class BuildDrawer extends StatelessWidget {
                   InkWell(
                     onTap: () {
                       firebaseAuthentication.signOut();
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(builder: (context) => Login()),
-                          (Route<dynamic> route) => false);
+
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          Login.myRoute, (Route<dynamic> route) => false);
                     },
                     child: Padding(
                       padding: EdgeInsets.only(left: 15, top: 15, bottom: 15),
@@ -90,7 +90,7 @@ class BuildDrawer extends StatelessWidget {
                           NormalText(
                             "Log Out",
                             color: AppTheme.secondaryGreyColor,
-                            size: AppTheme.fontSizeXL,
+                            size: AppTheme.fontSizeL,
                             boldText: true,
                           )
                         ],
