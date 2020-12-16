@@ -29,7 +29,7 @@ class _HomeState extends State<Home> {
       drawer: BuildDrawer(),
       appBar: BuildHomeAppBar(
         appBar: AppBar(),
-        reloadPage: () async {
+        cartBtnPressed: () async {
           await Navigator.pushNamed(context, Cart.myRoute);
           if (mounted) setState(() {});
         },

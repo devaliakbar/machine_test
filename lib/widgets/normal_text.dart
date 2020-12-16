@@ -7,7 +7,7 @@ class NormalText extends StatelessWidget {
   final bool boldText;
   final double size;
   final bool truncate;
-  final bool alignRight;
+  final TextAlign textAlign;
   final int maxLine;
 
   NormalText(this.text,
@@ -15,7 +15,7 @@ class NormalText extends StatelessWidget {
       this.boldText = false,
       this.size,
       this.truncate = false,
-      this.alignRight = false,
+      this.textAlign = TextAlign.start,
       this.maxLine = 1});
 
   @override
@@ -28,7 +28,7 @@ class NormalText extends StatelessWidget {
     return Text(
       text,
       overflow: overflowStyle,
-      textAlign: alignRight ? TextAlign.right : TextAlign.start,
+      textAlign: textAlign,
       style: TextStyle(
           color: color == null ? Colors.black : color,
           fontSize: size == null ? AppTheme.fontSizeM : size,

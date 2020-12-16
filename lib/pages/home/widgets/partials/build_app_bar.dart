@@ -6,8 +6,8 @@ import 'package:machine_test/widgets/cart_icon.dart';
 
 class BuildHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appBar;
-  final Function reloadPage;
-  BuildHomeAppBar({this.appBar, this.reloadPage});
+  final Function cartBtnPressed;
+  BuildHomeAppBar({this.appBar, this.cartBtnPressed});
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -23,12 +23,12 @@ class BuildHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
             if (state is CartInitial) {
               return CartIcon(
                 cartCount: state.cartModel.noOfItems,
-                onPress: reloadPage,
+                onPress: cartBtnPressed,
               );
             }
             return CartIcon(
               cartCount: 0,
-              onPress: reloadPage,
+              onPress: cartBtnPressed,
             );
           },
         ),
