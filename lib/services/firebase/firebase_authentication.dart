@@ -23,9 +23,9 @@ class FirebaseAuthentication extends Model {
 
       signInWithCredential(credential: credential, loginResult: loginResult);
     } catch (e) {
-      return false;
+      loginResult(false);
     }
-    return false;
+    loginResult(false);
   }
 
   Future<void> signInWithPhone(
@@ -41,7 +41,7 @@ class FirebaseAuthentication extends Model {
             signInWithCredential(
                 credential: credential, loginResult: loginResult),
         verificationFailed: (FirebaseAuthException exception) {
-          print(exception);
+          loginResult(false);
         },
         codeSent: (String verificationId, _) {
           enterSmsCode(
