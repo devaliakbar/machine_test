@@ -17,9 +17,11 @@ class Login extends StatefulWidget {
 
 class _LoginState extends State<Login> {
   bool _isLoading = false;
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: Column(
         children: [
           Expanded(
@@ -117,9 +119,24 @@ class _LoginState extends State<Login> {
 
   void loginResult(bool success) {
     if (success) {
-      Navigator.of(context).pushNamedAndRemoveUntil(
-          Home.myRoute, (Route<dynamic> route) => false);
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('Verified Successfully'),
+        duration: Duration(seconds: 2),
+      ));
+
+      Future.delayed(
+          const Duration(seconds: 2),
+          () => Navigator.of(context).pushNamedAndRemoveUntil(
+              Home.myRoute, (Route<dynamic> route) => false));
+
+      return;
     }
+
+    _scaffoldKey.currentState.showSnackBar(SnackBar(
+      content: Text('Failed to Verify'),
+      duration: Duration(microseconds: 500),
+    ));
+
     if (mounted) {
       setState(() {
         _isLoading = false;

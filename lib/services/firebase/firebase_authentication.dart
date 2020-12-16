@@ -41,15 +41,14 @@ class FirebaseAuthentication extends Model {
             signInWithCredential(
                 credential: credential, loginResult: loginResult),
         verificationFailed: (FirebaseAuthException exception) {
+          print(exception);
           loginResult(false);
         },
         codeSent: (String verificationId, _) {
           enterSmsCode(
               {verifyPhone: verifyPhone, verificationId: verificationId});
         },
-        codeAutoRetrievalTimeout: (String verificationId) {
-          loginResult(false);
-        });
+        codeAutoRetrievalTimeout: (String verificationId) {});
   }
 
   void verifyPhone(

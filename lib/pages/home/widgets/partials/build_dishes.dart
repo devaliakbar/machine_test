@@ -154,7 +154,7 @@ class BuildDishes extends StatelessWidget {
                         padding: EdgeInsets.only(left: 35),
                         child: homeDishes[index].isCustomizable
                             ? NormalText(
-                                "Customizible",
+                                "Customizations Available",
                                 color: Colors.red,
                               )
                             : Container(),
