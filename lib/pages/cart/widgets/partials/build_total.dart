@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:machine_test/services/settings/app_theme.dart';
+import 'package:machine_test/utils/util.dart';
 import 'package:machine_test/widgets/normal_text.dart';
 
 class BuildTotalAmount extends StatelessWidget {
@@ -19,7 +20,7 @@ class BuildTotalAmount extends StatelessWidget {
             color: Colors.black,
           ),
           NormalText(
-            "INR $totalAmount",
+            Util.formatCurrency(totalAmount),
             size: AppTheme.fontSizeXL,
             boldText: true,
             color: AppTheme.primaryGreenColor,

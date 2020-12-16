@@ -4,6 +4,7 @@ import 'package:machine_test/pages/cart/bloc/cart_bloc.dart';
 import 'package:machine_test/pages/cart/bloc/data/cart_model.dart';
 import 'package:machine_test/pages/cart/bloc/data/cart_repo.dart';
 import 'package:machine_test/services/settings/app_theme.dart';
+import 'package:machine_test/utils/util.dart';
 import 'package:machine_test/widgets/enter_qty.dart';
 import 'package:machine_test/widgets/normal_text.dart';
 
@@ -61,7 +62,7 @@ class BuildCartItems extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(left: 27, top: 20),
                     child: NormalText(
-                      "INR ${cartDishes[index].price}",
+                      Util.formatCurrency(cartDishes[index].price),
                       size: AppTheme.fontSizeL,
                       boldText: true,
                       color: AppTheme.primaryGreyColor,
@@ -103,7 +104,7 @@ class BuildCartItems extends StatelessWidget {
               width: 7,
             ),
             NormalText(
-              "INR ${cartDishes[index].total}",
+              Util.formatCurrency(cartDishes[index].total),
               boldText: true,
               size: AppTheme.fontSizeL,
               color: AppTheme.primaryGreyColor,

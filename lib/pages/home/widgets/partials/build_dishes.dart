@@ -5,6 +5,7 @@ import 'package:machine_test/pages/cart/bloc/data/cart_model.dart';
 import 'package:machine_test/pages/cart/bloc/data/cart_repo.dart';
 import 'package:machine_test/pages/home/bloc/data/home_model.dart';
 import 'package:machine_test/services/settings/app_theme.dart';
+import 'package:machine_test/utils/util.dart';
 import 'package:machine_test/widgets/enter_qty.dart';
 import 'package:machine_test/widgets/image_from_network.dart';
 import 'package:machine_test/widgets/normal_text.dart';
@@ -88,7 +89,7 @@ class BuildDishes extends StatelessWidget {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             NormalText(
-                              "INR " + homeDishes[index].price.toString(),
+                              Util.formatCurrency(homeDishes[index].price),
                               boldText: true,
                               color: AppTheme.primaryGreyColor,
                             ),

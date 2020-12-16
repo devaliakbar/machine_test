@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:machine_test/pages/cart/bloc/cart_bloc.dart';
 import 'package:machine_test/pages/cart/widgets/partials/build_app_bar.dart';
 import 'package:machine_test/pages/cart/widgets/partials/build_cart_item.dart';
