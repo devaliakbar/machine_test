@@ -9,15 +9,16 @@ class CustomIconButton extends StatelessWidget {
   final Gradient backgroundGradient;
   final Color backgroundColor;
   final Function onPressed;
+  final bool isLoading;
 
-  CustomIconButton({
-    @required this.text,
-    @required this.onPressed,
-    this.icon,
-    this.imageIconPath,
-    this.backgroundGradient,
-    this.backgroundColor,
-  });
+  CustomIconButton(
+      {@required this.text,
+      @required this.onPressed,
+      this.icon,
+      this.imageIconPath,
+      this.backgroundGradient,
+      this.backgroundColor,
+      this.isLoading = false});
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +32,7 @@ class CustomIconButton extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(31.0),
         ),
-        onPressed: onPressed,
+        onPressed: isLoading ? null : onPressed,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 30),
           child: Row(
@@ -48,12 +49,14 @@ class CustomIconButton extends StatelessWidget {
                     ),
               Expanded(
                 child: Center(
-                  child: NormalText(
-                    text,
-                    size: AppTheme.fontSizeL,
-                    boldText: true,
-                    color: Colors.white,
-                  ),
+                  child: isLoading
+                      ? CircularProgressIndicator()
+                      : NormalText(
+                          text,
+                          size: AppTheme.fontSizeL,
+                          boldText: true,
+                          color: Colors.white,
+                        ),
                 ),
               )
             ],

@@ -47,7 +47,9 @@ class FirebaseAuthentication extends Model {
           enterSmsCode(
               {verifyPhone: verifyPhone, verificationId: verificationId});
         },
-        codeAutoRetrievalTimeout: (String verificationId) {});
+        codeAutoRetrievalTimeout: (String verificationId) {
+          loginResult(false);
+        });
   }
 
   void verifyPhone(

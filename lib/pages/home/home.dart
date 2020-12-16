@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
         appBar: AppBar(),
         reloadPage: () async {
           await Navigator.pushNamed(context, Cart.myRoute);
-          setState(() {});
+          if (mounted) setState(() {});
         },
       ),
       body: SafeArea(

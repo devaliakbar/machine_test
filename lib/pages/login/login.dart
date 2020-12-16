@@ -16,6 +16,7 @@ class Login extends StatefulWidget {
 }
 
 class _LoginState extends State<Login> {
+  bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,10 +44,18 @@ class _LoginState extends State<Login> {
                             EdgeInsets.only(left: 20, right: 20, bottom: 11),
                         child: CustomIconButton(
                           text: "Google",
+                          isLoading: _isLoading,
                           imageIconPath: "assets/images/google-icon.png",
                           backgroundColor: AppTheme.blueColor,
-                          onPressed: () => firebaseAuthentication
-                              .signInWithGoogle(loginResult: loginResult),
+                          onPressed: () {
+                            firebaseAuthentication.signInWithGoogle(
+                                loginResult: loginResult);
+                            if (mounted) {
+                              setState(() {
+                                _isLoading = true;
+                              });
+                            }
+                          },
                         ),
                       ),
                       Container(
@@ -56,6 +65,7 @@ class _LoginState extends State<Login> {
                         child: CustomIconButton(
                           text: "Phone",
                           icon: Icons.phone,
+                          isLoading: _isLoading,
                           backgroundGradient: LinearGradient(
                             colors: <Color>[
                               AppTheme.secondaryGreenColor,
@@ -65,24 +75,30 @@ class _LoginState extends State<Login> {
                           onPressed: () => phoneEnterDialogue(
                             context: context,
                             verifyNumber: (String phone) {
+                              if (mounted) {
+                                setState(() {
+                                  _isLoading = true;
+                                });
+                              }
+
                               firebaseAuthentication.signInWithPhone(
                                 phone: phone,
                                 loginResult: loginResult,
                                 enterSmsCode: (
-                                    {@required Function verifyPhone,
-                                    @required String verificationId}) {
-                                  smsEnterDialogue(
-                                    context: context,
-                                    verifyOTP: (String enteredOtp) =>
-                                        verifyPhone(
+                                        {@required Function verifyPhone,
+                                        @required String verificationId}) =>
+                                    smsEnterDialogue(
+                                  context: context,
+                                  verifyOTP: (String enteredOtp) {
+                                    verifyPhone(
                                       {
                                         verificationId: verificationId,
                                         enteredOtp: enteredOtp,
                                         loginResult: loginResult
                                       },
-                                    ),
-                                  );
-                                },
+                                    );
+                                  },
+                                ),
                               );
                             },
                           ),
@@ -100,9 +116,14 @@ class _LoginState extends State<Login> {
   }
 
   void loginResult(bool success) {
-    if (success != null) {
+    if (success) {
       Navigator.of(context).pushNamedAndRemoveUntil(
           Home.myRoute, (Route<dynamic> route) => false);
+    }
+    if (mounted) {
+      setState(() {
+        _isLoading = false;
+      });
     }
   }
 }
