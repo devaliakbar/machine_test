@@ -1,29 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:machine_test/pages/cart/bloc/cart_bloc.dart';
+import 'package:machine_test/pages/cart/bloc/data/cart_model.dart';
+import 'package:machine_test/pages/cart/bloc/data/cart_repo.dart';
+import 'package:machine_test/pages/home/bloc/data/home_model.dart';
 import 'package:machine_test/services/settings/app_theme.dart';
 import 'package:machine_test/widgets/enter_qty.dart';
 import 'package:machine_test/widgets/image_from_network.dart';
 import 'package:machine_test/widgets/normal_text.dart';
 
 class BuildDishes extends StatelessWidget {
+  final List<HomeDishes> homeDishes;
+  BuildDishes(this.homeDishes);
+
   @override
   Widget build(BuildContext context) {
-    TextEditingController _qtyController = TextEditingController();
-    _qtyController.text = "5";
     return Padding(
-      padding: EdgeInsets.only(top: 15),
+      padding: EdgeInsets.symmetric(vertical: 5),
       child: ListView.separated(
         separatorBuilder: (context, index) => Divider(
           color: AppTheme.secondaryGreyColor,
         ),
-        itemCount: 10,
-        itemBuilder: (BuildContext context, int index) => _buildDish(),
+        itemCount: homeDishes.length,
+        itemBuilder: (BuildContext context, int index) =>
+            _buildDish(context, index),
       ),
     );
   }
 
-  Widget _buildDish() {
+  Widget _buildDish(BuildContext context, int index) {
+    TextEditingController qtyController = TextEditingController();
+    qtyController.text = "0";
     return Container(
-      padding: EdgeInsets.only(left: 15, right: 15, bottom: 15),
+      padding: EdgeInsets.only(left: 15, right: 15, bottom: 5),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -33,13 +42,15 @@ class BuildDishes extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 SizedBox(
-                  height: 15,
+                  height: 10,
                 ),
                 Row(
                   children: [
                     Icon(
                       Icons.radio_button_checked,
-                      color: AppTheme.primaryGreenColor,
+                      color: homeDishes[index].isVeg
+                          ? AppTheme.primaryGreenColor
+                          : Colors.red,
                       size: AppTheme.iconSizeM,
                     ),
                     SizedBox(
@@ -47,7 +58,7 @@ class BuildDishes extends StatelessWidget {
                     ),
                     Expanded(
                       child: NormalText(
-                        "Spinach and Salad",
+                        homeDishes[index].dishName,
                         size: AppTheme.fontSizeL,
                         boldText: true,
                         color: AppTheme.primaryGreyColor,
@@ -56,7 +67,7 @@ class BuildDishes extends StatelessWidget {
                   ],
                 ),
                 SizedBox(
-                  height: 10,
+                  height: 5,
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 31, right: 15),
@@ -64,12 +75,13 @@ class BuildDishes extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       NormalText(
-                        "INR7.95",
+                        "INR " + homeDishes[index].price.toString(),
                         boldText: true,
                         color: AppTheme.primaryGreyColor,
                       ),
                       NormalText(
-                        "15 Caories",
+                        homeDishes[index].calories.round().toString() +
+                            ' Calories',
                         boldText: true,
                         color: AppTheme.primaryGreyColor,
                       ),
@@ -77,39 +89,68 @@ class BuildDishes extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 15,
+                  height: 10,
                 ),
                 Padding(
                   padding: EdgeInsets.only(left: 31, right: 15),
                   child: NormalText(
-                    "Ggjkgsdkjfhdshlkgfk ld sgljl sgljl sgljlss sgljl sgljl sgljl sgljl sgljl",
+                    homeDishes[index].dishDescription,
                     color: AppTheme.secondaryGreyColor,
                   ),
-                ),
-                SizedBox(
-                  height: 15,
-                ),
-                Padding(
-                  padding: EdgeInsets.only(left: 31),
-                  child: EnterQty(),
                 ),
                 SizedBox(
                   height: 10,
                 ),
                 Padding(
-                  padding: EdgeInsets.only(left: 35),
-                  child: NormalText(
-                    "Customizible",
-                    color: Colors.red,
+                  padding: EdgeInsets.only(left: 31),
+                  child: EnterQty(
+                    qtyController,
+                    increment: () {
+                      BlocProvider.of<CartBloc>(context).add(AddToCartEvent(
+                          cartDishes: new CartDishes(
+                              homeDishes[index].dishId,
+                              homeDishes[index].dishName,
+                              homeDishes[index].isVeg,
+                              homeDishes[index].calories,
+                              homeDishes[index].price,
+                              1,
+                              homeDishes[index].price),
+                          opCode: CartRepo.ACTION_INCREMENT));
+                    },
+                    decrement: () {
+                      BlocProvider.of<CartBloc>(context).add(AddToCartEvent(
+                          cartDishes: new CartDishes(
+                              homeDishes[index].dishId,
+                              homeDishes[index].dishName,
+                              homeDishes[index].isVeg,
+                              homeDishes[index].calories,
+                              homeDishes[index].price,
+                              1,
+                              homeDishes[index].price),
+                          opCode: CartRepo.ACTION_DECREMENT));
+                    },
                   ),
+                ),
+                SizedBox(
+                  height: homeDishes[index].isCustomizable ? 12 : 5,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: 35),
+                  child: homeDishes[index].isCustomizable
+                      ? NormalText(
+                          "Customizible",
+                          color: Colors.red,
+                        )
+                      : Container(),
                 )
               ],
             ),
           ),
           SizedBox(
             height: 100,
+            width: 75,
             child: ImageFromNetwork(
-              "http://restaurants.unicomerp.net//images/Restaurant/1010000001/Item/Items/100000001.jpg",
+              homeDishes[index].imageUrl,
             ),
           )
         ],

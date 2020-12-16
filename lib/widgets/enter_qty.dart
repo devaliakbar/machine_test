@@ -2,18 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:machine_test/services/settings/app_theme.dart';
 
 class EnterQty extends StatelessWidget {
+  final Function increment;
+  final Function decrement;
+  final TextEditingController qtyController;
+  final Color backgroundColor;
+  EnterQty(this.qtyController,
+      {this.increment, this.decrement, this.backgroundColor});
   @override
   Widget build(BuildContext context) {
-    TextEditingController _qtyController = TextEditingController();
-    _qtyController.text = "5";
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         SizedBox(
-          width: 60.0,
+          width: 50.0,
           height: 45.0,
           child: RaisedButton(
-            color: AppTheme.primaryGreenColor,
+            color: backgroundColor == null
+                ? AppTheme.primaryGreenColor
+                : backgroundColor,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(23),
@@ -22,35 +28,42 @@ class EnterQty extends StatelessWidget {
             ),
             elevation: 0,
             onPressed: () {
-              int currentQty = int.parse(_qtyController.text);
+              int currentQty = int.parse(qtyController.text);
               if (currentQty != 0) {
                 currentQty--;
+                decrement();
               }
-              _qtyController.text = currentQty.toString();
+              qtyController.text = currentQty.toString();
             },
             child: Icon(Icons.horizontal_rule, color: Colors.white),
           ),
         ),
         Container(
-          width: 68.0,
+          width: 58.0,
           height: 45,
-          color: AppTheme.primaryGreenColor,
+          color: backgroundColor == null
+              ? AppTheme.primaryGreenColor
+              : backgroundColor,
           child: TextField(
             enabled: false,
-            controller: _qtyController,
+            controller: qtyController,
             textAlign: TextAlign.center,
             style: TextStyle(fontSize: AppTheme.fontSizeL, color: Colors.white),
             decoration: InputDecoration(
               filled: true,
-              fillColor: AppTheme.primaryGreenColor,
+              fillColor: backgroundColor == null
+                  ? AppTheme.primaryGreenColor
+                  : backgroundColor,
             ),
           ),
         ),
         SizedBox(
-          width: 60.0,
+          width: 50.0,
           height: 45.0,
           child: RaisedButton(
-              color: AppTheme.primaryGreenColor,
+              color: backgroundColor == null
+                  ? AppTheme.primaryGreenColor
+                  : backgroundColor,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.only(
                   bottomRight: Radius.circular(23),
@@ -59,11 +72,12 @@ class EnterQty extends StatelessWidget {
               ),
               elevation: 0,
               onPressed: () {
-                int currentQty = int.parse(_qtyController.text);
+                int currentQty = int.parse(qtyController.text);
                 if (currentQty != 100) {
                   currentQty++;
+                  increment();
                 }
-                _qtyController.text = currentQty.toString();
+                qtyController.text = currentQty.toString();
               },
               child: Icon(Icons.add, color: Colors.white)),
         ),

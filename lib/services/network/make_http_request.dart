@@ -33,17 +33,16 @@ class MakeHttpRequest {
           response = await http.post(requestUrl, body: body);
         }
       }
-
       var jsonResponce = await json.decode(response.body);
+      returnResponce['data'] = jsonResponce;
+      // if (jsonResponce['success'] && jsonResponce['status'] == 200) {
 
-      if (jsonResponce['success'] && jsonResponce['status'] == 200) {
-        returnResponce['data'] = jsonResponce['data'];
-      } else {
-        returnResponce['errorMsg'] = "Oops! Something went wrong.";
-        // if (jsonResponce.containsKey('message')) {
-        //   returnResponce['errorMsg'] = jsonResponce['message'];
-        // }
-      }
+      // } else {
+      //   returnResponce['errorMsg'] = "Oops! Something went wrong.";
+      //   // if (jsonResponce.containsKey('message')) {
+      //   //   returnResponce['errorMsg'] = jsonResponce['message'];
+      //   // }
+      // }
     } on SocketException catch (_) {
       returnResponce['errorMsg'] = ERROR_NO_CONNECTION;
     } catch (e) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:machine_test/pages/cart/cart.dart';
 import 'package:machine_test/services/settings/app_theme.dart';
 import 'package:machine_test/widgets/normal_text.dart';
 
@@ -16,7 +17,15 @@ class CartIcon extends StatelessWidget {
             color: AppTheme.secondaryGreyColor,
             size: AppTheme.iconSizeM,
           ),
-          onPressed: () {},
+          onPressed: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) {
+                  return Cart();
+                },
+              ),
+            );
+          },
         ),
         Positioned(
           right: 3,

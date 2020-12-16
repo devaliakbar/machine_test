@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:machine_test/pages/home/bloc/data/home_model.dart';
+import 'package:machine_test/pages/home/bloc/home_bloc.dart';
 import 'package:machine_test/services/settings/app_theme.dart';
 import 'package:machine_test/widgets/normal_text.dart';
 
 class BuildCategories extends StatelessWidget {
-  final List<String> categories;
+  final List<HomeCategory> categories;
   final int currentIndex;
 
   BuildCategories(this.categories, this.currentIndex);
@@ -14,21 +17,27 @@ class BuildCategories extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       itemCount: categories.length,
       itemBuilder: (BuildContext context, int index) {
-        return Container(
-          color: currentIndex == index ? AppTheme.pinkColor : Colors.white,
+        return InkWell(
+          onTap: () {
+            BlocProvider.of<HomeBloc>(context)
+                .add(HomeCategoryChangeEvent(newIndex: index));
+          },
           child: Container(
-            alignment: Alignment.center,
-            color: Colors.white,
-            padding: EdgeInsets.symmetric(horizontal: 15),
-            margin: EdgeInsets.only(
-              bottom: 2,
-            ),
-            child: NormalText(
-              categories[index],
-              boldText: true,
-              color: currentIndex == index
-                  ? AppTheme.pinkColor
-                  : AppTheme.secondaryGreyColor,
+            color: currentIndex == index ? AppTheme.pinkColor : Colors.white,
+            child: Container(
+              alignment: Alignment.center,
+              color: Colors.white,
+              padding: EdgeInsets.symmetric(horizontal: 15),
+              margin: EdgeInsets.only(
+                bottom: 2,
+              ),
+              child: NormalText(
+                categories[index].categoryName,
+                boldText: true,
+                color: currentIndex == index
+                    ? AppTheme.pinkColor
+                    : AppTheme.secondaryGreyColor,
+              ),
             ),
           ),
         );

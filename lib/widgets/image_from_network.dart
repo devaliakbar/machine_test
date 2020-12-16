@@ -8,7 +8,10 @@ class ImageFromNetwork extends StatelessWidget {
   Widget build(BuildContext context) {
     return CachedNetworkImage(
       imageUrl: imageUrl,
-      placeholder: (context, url) => CircularProgressIndicator(),
+      fit: BoxFit.cover,
+      placeholder: (context, url) => Center(
+        child: CircularProgressIndicator(),
+      ),
       errorWidget: (context, url, error) => Icon(
         Icons.error_outline,
         color: Colors.black,
