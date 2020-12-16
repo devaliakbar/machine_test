@@ -37,6 +37,7 @@ dependencies:
   flutter_bloc: ^6.1.1
   intl: ^0.16.1
   page_transition: ^1.1.7+3
+  flutter_statusbarcolor: ^0.2.3
 
 dev_dependencies:
   flutter_test:
