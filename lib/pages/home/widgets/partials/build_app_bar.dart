@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:machine_test/pages/cart/bloc/cart_bloc.dart';
+import 'package:machine_test/pages/home/widgets/partials/build_categories.dart';
 import 'package:machine_test/services/settings/app_theme.dart';
 import 'package:machine_test/widgets/cart_icon.dart';
 
 class BuildHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   final AppBar appBar;
   final Function cartBtnPressed;
-  BuildHomeAppBar({this.appBar, this.cartBtnPressed});
+  BuildHomeAppBar({@required this.appBar, this.cartBtnPressed});
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      bottom: BuildCategories(),
       backgroundColor: Colors.white,
-      elevation: 0,
       iconTheme: IconThemeData(color: AppTheme.primaryGreyColor),
       actions: [
         BlocConsumer<CartBloc, CartState>(
@@ -37,5 +38,6 @@ class BuildHomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => new Size.fromHeight(appBar.preferredSize.height);
+  Size get preferredSize =>
+      new Size.fromHeight(appBar.preferredSize.height + 30);
 }

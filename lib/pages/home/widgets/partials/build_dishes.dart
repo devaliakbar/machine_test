@@ -165,8 +165,11 @@ class BuildDishes extends StatelessWidget {
                 SizedBox(
                   height: 100,
                   width: 75,
-                  child: ImageFromNetwork(
-                    homeDishes[index].imageUrl,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(3.0),
+                    child: ImageFromNetwork(
+                      homeDishes[index].imageUrl,
+                    ),
                   ),
                 )
               ],

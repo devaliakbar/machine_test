@@ -31,31 +31,34 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: BuildDrawer(),
-      appBar: BuildHomeAppBar(
-        appBar: AppBar(),
-        cartBtnPressed: () async {
-          await Navigator.pushNamed(context, Cart.myRoute);
-          if (mounted) setState(() {});
-        },
-      ),
-      body: SafeArea(
-        child: BlocConsumer<HomeBloc, HomeState>(
-          listener: (context, state) {
-            print("Home State Changed");
-          },
-          builder: (context, state) {
-            if (state is HomeLoadFailedState) {
-              return HomeError(state.errorMsg);
-            } else if (state is HomeLoadedState) {
-              return HomeBody(state.homeData);
-            } else {
-              return HomeLoading();
-            }
-          },
-        ),
-      ),
+    return BlocConsumer<HomeBloc, HomeState>(
+      listener: (context, state) {
+        print("Home State Changed");
+      },
+      builder: (context, state) {
+        return DefaultTabController(
+          length: state is HomeLoadedState
+              ? state.homeData.homecategories.length
+              : 0,
+          child: Scaffold(
+            drawer: BuildDrawer(),
+            appBar: BuildHomeAppBar(
+              appBar: AppBar(),
+              cartBtnPressed: () async {
+                await Navigator.pushNamed(context, Cart.myRoute);
+                if (mounted) setState(() {});
+              },
+            ),
+            body: SafeArea(
+              child: state is HomeLoadFailedState
+                  ? HomeError(state.errorMsg)
+                  : (state is HomeLoadedState)
+                      ? HomeBody(state.homeData)
+                      : HomeLoading(),
+            ),
+          ),
+        );
+      },
     );
   }
 }

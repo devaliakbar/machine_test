@@ -1,10 +1,7 @@
 class HomeModel {
-  int selectedIndex = 0;
   List<HomeCategory> homecategories;
 
   void fillHomeCategories(Map<String, dynamic> json) {
-    selectedIndex = 0;
-
     homecategories = new List<HomeCategory>();
 
     json['table_menu_list'].forEach((v) {

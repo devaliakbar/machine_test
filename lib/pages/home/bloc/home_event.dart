@@ -8,11 +8,3 @@ abstract class HomeEvent extends Equatable {
 }
 
 class HomeLoadEvent extends HomeEvent {}
-
-class HomeCategoryChangeEvent extends HomeEvent {
-  final int newIndex;
-  HomeCategoryChangeEvent({@required this.newIndex});
-
-  @override
-  List<Object> get props => [newIndex];
-}

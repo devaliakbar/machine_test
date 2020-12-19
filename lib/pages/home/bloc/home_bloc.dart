@@ -26,10 +26,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       } catch (e) {
         yield HomeLoadFailedState(errorMsg: e.toString());
       }
-    } else if (event is HomeCategoryChangeEvent) {
-      yield HomeLoadingState();
-      _homeRepo.homeModel.selectedIndex = event.newIndex;
-      yield HomeLoadedState(homeData: _homeRepo.homeModel);
     }
   }
 }

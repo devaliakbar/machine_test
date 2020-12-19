@@ -21,20 +21,23 @@ class CartIcon extends StatelessWidget {
         ),
         Positioned(
           right: 3,
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.red,
-              borderRadius: BorderRadius.all(
-                Radius.circular(11),
+          child: InkWell(
+            onTap: onPress,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.red,
+                borderRadius: BorderRadius.all(
+                  Radius.circular(11),
+                ),
               ),
-            ),
-            height: 22,
-            width: 22,
-            child: Center(
-              child: NormalText(
-                cartCount.toString(),
-                color: Colors.white,
-                size: AppTheme.fontSizeS,
+              height: 22,
+              width: 22,
+              child: Center(
+                child: NormalText(
+                  cartCount.toString(),
+                  color: Colors.white,
+                  size: AppTheme.fontSizeS,
+                ),
               ),
             ),
           ),
